@@ -29,7 +29,8 @@ module OpenGraph
     page = OpenGraph::Object.new
     doc.css("meta") do |m|
       attributes = m.node.attributes
-      if attributes["property"]? && attributes["property"].to_s.match(/["']og:(.+)['"]/i)
+      if (attributes["property"]? && attributes["property"].to_s.match(/["']og:(.+)['"]/i)) ||
+         (attributes["name"]? && attributes["name"].to_s.match(/["']og:(.+)['"]/i))
         prop = $1.gsub("-", "_")
         content = attributes["content"].to_s
         if value = content.match(/["'](.+)['"]/i)
